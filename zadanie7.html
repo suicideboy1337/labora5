@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    *{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+    }
+    td{
+		width: 40px;
+		height: 40px;
+		border: 2px solid black;
+		text-align: center;
+		font-size: 30px;
+		cursor: pointer;
+    }
+    table{
+		margin:25px;;
+		border-collapse: collapse;
+	}
+	div{
+		margin:5px;
+	}
+	button{
+		margin:5px;
+	}
+  </style>
+</head>
+
+  <body>
+   <table>
+     <tr>
+       <td id= "cell1" onclick="check('cell1')"></td>
+       <td id= "cell2" onclick="check('cell2')"></td>
+       <td id= "cell3" onclick="check('cell3')"></td>
+     </tr>
+     <tr>
+       <td id= "cell4" onclick="check('cell4')"></td>
+       <td id= "cell5" onclick="check('cell5')"></td>
+       <td id= "cell6" onclick="check('cell6')"></td>
+     </tr>
+     <tr>
+       <td id= "cell7" onclick="check('cell7')"></td>
+       <td id= "cell8" onclick="check('cell8')"></td>
+       <td id= "cell9" onclick="check('cell9')"></td>
+     </tr>
+   </table>
+   <button onclick="location.reload()">Очистить</button>
+   <div>Ход ноликов</div>
+  <script>
+    let cells = ['cell1', 'cell2', 'cell3', 'cell4', 'cell5', 'cell6', 'cell7', 'cell8', 'cell9']; 
+    function check(a){
+      if (document.getElementById(a).innerHTML == ""){
+        document.getElementById(a).innerHTML = "O";
+      }
+      else {
+        alert("Нельзя ходить на занятую клетку");
+        return 0;
+      }
+      for (let i=0; i<cells.length; i++){
+        if (cells[i] == a){
+          cells.splice(i,1);
+        }
+      }
+      if (victory()){
+        setTimeout(function(){alert("Победа ноликов"); location.reload();},0);
+		return 0;
+      }
+      if (cells.length == 0){
+        setTimeout(function(){alert("Ничья"); location.reload();},0);
+		return 0;
+      }
+      ai_turn();
+      if (victory()) {
+        setTimeout(function(){alert("Победа крестиков"); location.reload();},0);
+		return 0;
+      }
+    }
+	function ai_turn(){
+		  let num = Math.floor(Math.random()*cells.length);
+		  document.getElementById(cells[num]).innerHTML = "X";
+		  cells.splice(num, 1);
+		}
+    function victory() {
+      if (document.getElementById('cell1').innerHTML != '' &&
+              document.getElementById('cell1').innerHTML == document.getElementById('cell2').innerHTML &&
+              document.getElementById('cell2').innerHTML == document.getElementById('cell3').innerHTML) {
+        return true;
+      }
+      if (document.getElementById('cell4').innerHTML !='' &&
+              document.getElementById('cell4').innerHTML == document.getElementById('cell5').innerHTML &&
+              document.getElementById('cell5').innerHTML == document.getElementById('cell6').innerHTML) {
+        return true;
+      }
+      if (document.getElementById('cell7').innerHTML !='' &&
+              document.getElementById('cell7').innerHTML == document.getElementById('cell8').innerHTML &&
+              document.getElementById('cell8').innerHTML == document.getElementById('cell9').innerHTML) {
+        return true;
+      }
+      if (document.getElementById('cell1').innerHTML !='' &&
+              document.getElementById('cell1').innerHTML == document.getElementById('cell4').innerHTML &&
+              document.getElementById('cell4').innerHTML == document.getElementById('cell7').innerHTML) {
+        return true;
+      }
+      if (document.getElementById('cell2').innerHTML !='' &&
+              document.getElementById('cell2').innerHTML == document.getElementById('cell5').innerHTML &&
+              document.getElementById('cell5').innerHTML == document.getElementById('cell8').innerHTML) {
+        return true;
+      }
+      if (document.getElementById('cell3').innerHTML !='' &&
+              document.getElementById('cell3').innerHTML == document.getElementById('cell6').innerHTML &&
+              document.getElementById('cell6').innerHTML == document.getElementById('cell9').innerHTML) {
+        return true;
+      }
+      if (document.getElementById('cell1').innerHTML !='' &&
+              document.getElementById('cell1').innerHTML == document.getElementById('cell5').innerHTML &&
+              document.getElementById('cell5').innerHTML == document.getElementById('cell9').innerHTML) {
+        return true;
+      }
+      if (document.getElementById('cell3').innerHTML !='' &&
+              document.getElementById('cell3').innerHTML == document.getElementById('cell5').innerHTML &&
+              document.getElementById('cell5').innerHTML == document.getElementById('cell7').innerHTML) {
+        return true;
+      }
+      return false;
+    }
+  </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<style>
+		button {
+			margin:5px;
+		}
+	</style>
+</head>
+<body>
+    <input type="text" id="field1" />
+    <input type="text" id="field2" /><br>
+	<button onclick="create()">Копировать</button><br>
+    <button onclick="destroy()">Очистить</button>
+<script>
+	function create(){
+		let field1 = document.getElementById("field1");
+		let field2 = document.getElementById("field2");
+		if (field1.value) {
+			field2.value = field1.value;
+		} else {
+			alert("Первое поле должно быть заполнено")
+		}
+	}
+	function destroy() {
+		document.getElementById("field1").value = "";
+		document.getElementById("field2").value = "";
+	}
+</script>
+</body>
+</html>

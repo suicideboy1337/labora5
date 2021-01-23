@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			display: flex;
+			justify-content: center;
+		}
+		#calc {
+			margin: 20px;
+			width: 400px;
+			border: 3px solid black;
+			font-family: sans-serif;
+		}
+		input {
+			display: block;
+			width: 100%;
+			text-align: right;
+			font-size: 40pt;
+			appearance: textfield;
+			padding: 5px;
+			border: 0;
+			border-bottom: 3px solid black;
+			color: black;
+		}
+		button {
+			color: white;
+			background-color: gray;
+			border: 1px solid black;
+			border-radius: 7px;
+			font-size: 20pt;
+			padding: 20px;
+			cursor: pointer;
+		}
+		.wide {
+			grid-column: span 3;
+		}
+		#control {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 15px;
+			padding: 15px;
+		}
+      </style>
+      
+  </head>
+  <body>
+    <div id="calc">
+      <input type="number" id="display" disabled />
+      <div id="control">
+        <button class="wide" style="background-color:#4582b3;" onclick="destroy()"">C</button>
+        <button onclick="mathop('/')">/</button>
+        <button onclick="addnumber(7)">7</button>
+        <button onclick="addnumber(8)">8</button>
+        <button onclick="addnumber(9)">9</button>
+        <button onclick="mathop('*')">x</button>
+        <button onclick="addnumber(4)">4</button>
+        <button onclick="addnumber(5)">5</button>
+        <button onclick="addnumber(6)">6</button>
+        <button onclick="mathop('-')">-</button>
+        <button onclick="addnumber(1)">1</button>
+        <button onclick="addnumber(2)">2</button>
+        <button onclick="addnumber(3)">3</button>
+        <button onclick="mathop('+')">+</button>
+        <button onclick="addnumber(0)" class="wide">0</button>
+        <button onclick="calc()" style="background-color:#2e8b57;">=</button>
+      </div>
+    </div>
+  <script>
+	let operand = 0;
+	let op = "";
+	const display = document.getElementById("display");
+	let flag = false;
+	function destroy() {
+		display.value = 0;
+	}
+	function addnumber(num) {
+		if (display.value == "0" || flag) {
+			display.value = num;
+			flag = false;
+		} else {
+			display.value += num;
+		}
+	}
+	function mathop(new_op) {
+		operand = new Number(document.getElementById("display").value);
+		op = new_op;
+		flag = true;
+	}
+	function calc() {
+		switch (op) {
+			case '+':
+				display.value = operand + new Number(display.value);
+				break;
+			case '-':
+				display.value = operand - new Number(display.value);
+				break;
+			case '*':
+				display.value = operand * new Number(display.value);
+				break;
+			case '/':
+				if (display.value == '0') {
+					alert("На ноль делить нельзя");
+				} else {
+					display.value = operand / new Number(display.value);
+				}
+				break;
+		}
+	}
+</script>
+ </body>
+  
+</html>
